@@ -64,3 +64,10 @@ use this library when you want the answer the host would give.
 Unknown names and ports raise `KeyError`. Invalid protocols, empty names,
 and out-of-range ports raise `ValueError`. Passing a `bool` where a port is
 expected raises `TypeError` (since `bool` is a subclass of `int`).
+
+## Design notes
+
+The window stores values eagerly rather than keeping running aggregates. Running
+sums drift with floating point over long streams, and recomputing from a small
+buffer is cheap enough that the drift is not worth the speed.
+
